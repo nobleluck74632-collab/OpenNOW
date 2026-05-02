@@ -1,0 +1,36 @@
+{
+  "name": "opennow-website",
+  "version": "0.3.8",
+  "description": "OpenNOW Website - Landing page and web application",
+  "author": {
+    "name": "zortos293",
+    "email": "zortos293@users.noreply.github.com"
+  },
+  "homepage": "https://github.com/OpenCloudGaming/OpenNOW",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenCloudGaming/OpenNOW.git"
+  },
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lucide-react": "^1.7.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^7.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.17",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.2.0",
+    "typescript": "^6.0.2",
+    "vite": "^7.3.1"
+  }
+}
