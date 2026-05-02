@@ -84,6 +84,19 @@ export function LandingPage(): React.JSX.Element {
               Try Web Version
             </Link>
           </div>
+          <div className="hero-preview fade-in" style={{ marginTop: "4rem" }}>
+            <img 
+              src="/app-screenshot.png" 
+              alt="OpenNOW App Interface" 
+              style={{ 
+                width: "100%", 
+                maxWidth: "1000px", 
+                borderRadius: "var(--radius-lg)", 
+                boxShadow: "0 20px 50px rgba(0,0,0,0.5), var(--glow-primary)",
+                border: "1px solid var(--border)"
+              }} 
+            />
+          </div>
           <div className="hero-stats">
             <div className="hero-stat">
               <div className="hero-stat-value">1000+</div>
@@ -115,6 +128,43 @@ export function LandingPage(): React.JSX.Element {
               Built with cutting-edge technology to deliver the best cloud gaming experience.
             </p>
           </div>
+          
+          <div className="features-showcase" style={{ marginBottom: "5rem", display: "flex", gap: "2rem", alignItems: "center", flexWrap: "wrap" }}>
+            <div style={{ flex: "1", minWidth: "300px" }}>
+              <h3 style={{ fontSize: "2rem", marginBottom: "1.5rem" }}>Powerful Configuration</h3>
+              <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", marginBottom: "2rem" }}>
+                Fine-tune your experience with advanced settings. Choose your preferred codec, 
+                adjust bitrates, and select the best region for minimal latency.
+              </p>
+              <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "1rem", padding: 0 }}>
+                <li style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <div style={{ color: "var(--primary)" }}><Zap size={20} /></div>
+                  <span>AV1, H.265, and H.264 Support</span>
+                </li>
+                <li style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <div style={{ color: "var(--primary)" }}><Monitor size={20} /></div>
+                  <span>Custom Resolution & FPS (up to 240)</span>
+                </li>
+                <li style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                  <div style={{ color: "var(--primary)" }}><Layers size={20} /></div>
+                  <span>Advanced Decoder & Encoder Options</span>
+                </li>
+              </ul>
+            </div>
+            <div style={{ flex: "1.5", minWidth: "400px" }}>
+              <img 
+                src="/settings-screenshot.png" 
+                alt="OpenNOW Settings" 
+                style={{ 
+                  width: "100%", 
+                  borderRadius: "var(--radius-md)", 
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                  border: "1px solid var(--border)"
+                }} 
+              />
+            </div>
+          </div>
+
           <div className="features-grid">
             <div className="feature-card">
               <div className="feature-icon">
