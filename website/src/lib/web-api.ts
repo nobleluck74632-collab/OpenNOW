@@ -359,29 +359,53 @@ interface SignalingCallbacks {
 }
 
 class WebSignalingClient {
-  private callbacks: SignalingCallbacks | null = null;
+  private listeners: Set<(event: MainToRendererSignalingEvent) => void> = new Set();
   private connected = false;
 
   connect(_url: string, _sessionId: string, callbacks: SignalingCallbacks): void {
-    this.callbacks = callbacks;
     this.connected = true;
     console.log("[WebSignaling] Connected (mock)");
+    
+    // Internal callback to handle events from the mock server
+    const handleEvent = (event: MainToRendererSignalingEvent) => {
+      callbacks.onEvent(event);
+      this.listeners.forEach(l => l(event));
+    };
+
     setTimeout(() => {
-      this.callbacks?.onEvent({ type: "connected" });
+      handleEvent({ type: "connected" });
+      
+      // Simulate receiving an offer from the "server"
+      setTimeout(() => {
+        handleEvent({ 
+          type: "offer", 
+          sdp: "v=0\r\no=- 0 0 IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\nm=video 9 UDP/TLS/RTP/SAVPF 96\r\nc=IN IP4 127.0.0.1" 
+        });
+      }, 1000);
     }, 100);
   }
 
   disconnect(): void {
     this.connected = false;
-    this.callbacks = null;
     console.log("[WebSignaling] Disconnected (mock)");
-    setTimeout(() => {
-      this.callbacks?.onEvent({ type: "disconnected", reason: "User disconnected" });
-    }, 50);
+    const event: MainToRendererSignalingEvent = { type: "disconnected", reason: "User disconnected" };
+    this.listeners.forEach(l => l(event));
+  }
+
+  addListener(listener: (event: MainToRendererSignalingEvent) => void): () => void {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
   }
 
   sendAnswer(_sdp: string): void {
     console.log("[WebSignaling] Answer sent (mock)");
+    // Simulate ICE completion after answer
+    setTimeout(() => {
+      this.listeners.forEach(l => l({ 
+        type: "remote-ice", 
+        candidate: { candidate: "candidate:1 1 UDP 2122260223 127.0.0.1 9 typ host", sdpMid: "0", sdpMLineIndex: 0 } 
+      }));
+    }, 500);
   }
 
   sendIceCandidate(_candidate: IceCandidatePayload): void {
@@ -650,8 +674,8 @@ export function createWebApi(): OpenNowApi {
       return Promise.resolve();
     },
 
-    onSignalingEvent: (_listener: (event: MainToRendererSignalingEvent) => void): (() => void) => {
-      return () => {};
+    onSignalingEvent: (listener: (event: MainToRendererSignalingEvent) => void): (() => void) => {
+      return signalingClient.addListener(listener);
     },
 
     onToggleFullscreen: (listener: () => void): (() => void) => {
