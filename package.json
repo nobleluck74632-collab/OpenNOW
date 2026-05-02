@@ -7,6 +7,10 @@
     "build": "npm --prefix opennow-stable run build",
     "typecheck": "npm --prefix opennow-stable run typecheck",
     "dist": "npm --prefix opennow-stable run dist",
-    "dist:signed": "npm --prefix opennow-stable run dist:signed"
+    "dist:signed": "npm --prefix opennow-stable run dist:signed",
+    "website:dev": "npm --prefix website run dev",
+    "website:build": "npm --prefix website run build",
+    "website:preview": "npm --prefix website run preview",
+    "website:typecheck": "npm --prefix website run typecheck"
   }
 }
